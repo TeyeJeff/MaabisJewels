@@ -1,0 +1,52 @@
+<header class="site-header">
+    <div class="header-container">
+
+        <!-- Logo - always visible & clicking on the logo takes you to the homepage-->
+        <a href="/maabis-home.html" class="logo-link">
+            <img src="/images/maabislogo.jpg" alt="Maabis Jewels Logo" class="logo">
+        </a>
+
+        <!-- Hamburger button - only visible on small screens -->
+        <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Main navigation links - only visible on large screens -->
+        <nav class="main-nav" id="main-nav">
+            <ul class="nav-links">
+                <li><a href="/maabis-home.html" class="nav-link">Home</a></li>
+                <li><a href="/maabis-shop.html" class="nav-link">Shop</a></li>
+                <li><a href="/maabis-contactus.html" class="nav-link">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <!-- Right icons section -  is always visible -->
+        <div class="header-icons">
+
+            <!-- Cart - is always shown -->
+            <a href="/cart.html" class="icon-link cart-icon">
+                🛒 Cart
+                <span class="cart-count">0</span> <!-- update this dynamically -->
+            </a>
+
+            <!-- Profile with dropdown showing wishlist and orders -->
+            <div class="profile-dropdown">
+                <button class="icon-button profile-btn" aria-expanded="false" aria-haspopup="true">
+                    👤 Account
+                </button>
+
+                <!-- Dropdown menu containing wishlist and orders - hidden by default -->
+                <div class="dropdown-menu" aria-hidden="true">
+                    <a href="/profile.html" class="dropdown-item">My Account</a>
+                    <a href="/wishlists.html" class="dropdown-item">♡ Wishlist</a>
+                    <a href="/orders.html" class="dropdown-item">Orders</a>
+                    <!-- Add logout, account settings etc. later if needed -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</header>

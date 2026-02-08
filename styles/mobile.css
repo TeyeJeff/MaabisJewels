@@ -1,0 +1,105 @@
+
+@media (max-width: 768px) {
+
+    /* Header adjustments */
+    .header-container {
+        flex-wrap: wrap;
+        gap: var(--spacing-md);
+    }
+
+    .logo {
+        max-height: 45px;
+    }
+
+    /* Show hamburger – hide desktop nav links */
+    .hamburger {
+        display: flex !important; 
+    }
+
+    .nav-links {
+        display: none;
+        /* completely hidden on mobile */
+    }
+
+    /* Mobile slide-in menu */
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 320px;
+        height: 100vh;
+        background: var(--color-white);
+        box-shadow: -4px 0 15px rgba(0, 0, 0, 0.15);
+        transition: right 0.35s ease;
+        padding: 5rem 1.5rem 2rem;
+        z-index: 999;
+    }
+
+    .main-nav.active {
+        right: 0;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-link {
+        font-size: 1.4rem;
+        padding: 0.5rem 0;
+    }
+
+    /* Hamburger animation */
+    .hamburger[aria-expanded="true"] span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .hamburger[aria-expanded="true"] span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger[aria-expanded="true"] span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Icons stack vertically or adjust spacing */
+    .header-icons {
+        gap: 1.2rem;
+        margin-top: var(--spacing-sm);
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    /* Dropdown on mobile – full width or adjust */
+    .dropdown-menu {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 280px;
+    }
+
+    /* Footer – stack content */
+    .footer-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    /* SERVICES CONTAINER*/
+
+        .container {
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .services {
+            width: 80%;
+            margin-bottom: 2rem;
+        }
+}
+
