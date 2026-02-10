@@ -13,13 +13,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Arimo:ital,wght@0,400..700;1,400..700&display=swap"
         rel="stylesheet">
-
+    
     <!-- css styling for larger screens and smaller screens-->
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/mobile.css">
     <link rel="icon" href="images/maabis-favicon.ico">
-
-
 </head>
 
 <body>
@@ -27,14 +25,30 @@
     <div id="main-header"></div>
 
     <main>
-        <main>
-            <section class="wishlist">
-                <h1>My Wishlist</h1>
-                <div id="wishlist-grid" class="product-grid">
-                    <!-- will be dynamiccaly added -->
+        <section class="checkout">
+            <h1>Checkout</h1>
+            <form id="checkout-form">
+                <label>Name</label>
+                <input type="text" required>
+
+                <label>Phone / WhatsApp</label>
+                <input type="tel" required>
+
+                <label>Delivery Location</label>
+                <input type="text" placeholder="e.g. Accra, East Legon">
+
+                <label>Notes / Customization Requests</label>
+                <textarea></textarea>
+
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div id="checkout-items"></div>
+                    <p>Total: <strong id="checkout-total">GHS 0.00</strong></p>
                 </div>
-            </section>
-        </main>
+
+                <button type="submit" class="btn-primary">Send Order via WhatsApp</button>
+            </form>
+        </section>
     </main>
 
     <div id="main-footer"></div>

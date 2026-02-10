@@ -29,7 +29,40 @@
 <body>
     <div id="main-header"></div>
     <main>
-        
+        <h1 class="products">Discover Jewelry That Suits Your Taste.</h1>
+        <!--Search container where item names can be search and the results will be filtered on the screen-->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by brand name....">
+            <button id="searchBtn">Search</button>
+        </div>
+
+        <div id="results"></div>
+
+        <!--Filters & Sorting -->
+        <section class="shop-controls">
+            <div class="filters">
+                <select id="category-filter">
+                    <option value="">All Categories</option>
+                    <option value="necklaces">Necklaces</option>
+                    <option value="rings">Rings</option>
+                    <!-- etc. -->
+                </select>
+                <select id="sort">
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="newest">Newest</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Product Catalog Grid -->
+         <section class="products-section">
+            <h1>All Jewelry</h1>
+            <div class="product-grid" id="product-grid">
+                <!-- Will be filled dynamically-->
+            </div>
+         </section>
+
     </main>
     <div id="main-footer"></div>
 </body>

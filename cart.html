@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaabisJewels</title>
+    <meta name="description"
+        content="Discover MaabisJewels for high-quality watches, rings, and custom pieces. Shop our unique collection and find the perfect handcrafted jewelry statement piece today">
+    <meta name="author" content="Teye Nathaniel Jeff">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Arimo:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+    
+    <!-- css styling for larger screens and smaller screens-->
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/mobile.css">
+    <link rel="icon" href="images/maabis-favicon.ico">
+    
+    
+</head>
+
+<body>
+
+    <div id="main-header"></div>
+
+    <main>
+        <section class="cart-section">
+            <h1>Your Cart</h1>
+            <div id="cart-items">
+                <!-- Will be dynamically filled when a product is added to cart-->
+            </div>
+            <div class="cart-summary">
+                <p>Subtotal: <span id="cart-subtotal">GHS 0.00</span></p>
+                <button class="btn-primary" id="checkout-btn">Proceed to Checkout</button>
+            </div>
+        </section>
+    </main>
+
+    <div id="main-footer"></div>
+
+    <!--javascript file-->
+    <script src="scripts/main.js" type="module"></script>
+    <script src="scripts/helpers.mjs" type="module"></script>
+</body>
+
+</html>
