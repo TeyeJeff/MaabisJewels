@@ -88,11 +88,91 @@ function addHeaderEventListeners() {
 }
 
 // function to retrieve data to local storage
-export function getLocalStorage(key) {
-    return JSON.parse(localStorage.getItem(key));
+/**
+ * Safely retrieves a value from localStorage and parses it as JSON.
+ * @param {string} key - This is the key to retrieve from local storage
+ * @param {*} defaultValue - Value to return if key doesn't exist or parsing fails
+ * @returns {*} Parsed value or defaultValue
+ */
+export function getLocalStorage(key, defaultValue = null) {
+    try {
+        const value = localStorage.getItem(key);
+        // If no value exists, return default immediately instead of crashing
+        if (value == null) return defaultValue;
+        return JSON.parse(value);
+    } catch (error) {
+        console.error(`Error reading localStorage key "${key}": `, error);
+        return defaultValue;
+    }
 }
 
-// function to save data inot local storage 
+// function to save data inot local storage
+/**
+ * Safely saves a value to localStorage as JSON.
+ * @param {string} key - The key to set
+ * @param {*} data - The value to store (will be JSON.stringified)
+ */
 export function setLocalStorage(key, data) {
-    localStorage.setItem(key, JSON.stringify(data));
+    try {
+        localStorage.setItem(key, JSON.stringify(data));
+    } catch (error) {
+        console.error(`Error writing to localStorage Key"${key}":`, error);
+    }
+}
+
+// function to remove data from localStorage
+/**
+ * Removes a key from localStorage
+ * @param {string} key - The key to remove
+ */
+
+export function removeLocalStorage(key) {
+    try {
+        localStorage.removeItem(key);
+    } catch (error) {
+        console.error(`Error removing localStorage key"${key}":`, error);
+    }
+}
+
+// function to check if user is logged in 
+export function isLoggedIn() {
+    return !!getLocalStorage("currentUser");
+}
+
+// function to get current user object
+export function getCurrentUser() {
+    return getLocalStorage("currentUser", null);
+}
+
+/*Simple login simulation which uses localStorage and accepts any non-empty username + password 
+will be able to validate against stored users after learning backend dev in the next few blocks*/
+
+export function loginUser(username, password) {
+    if (!username || !password) return null;  // when the username and password fields are empty, a null is return this prevents saving empty/invalid logins
+
+    const user = { username, lastLogin: new Date().toISOString() }; // this creates a simple user object with two properties, this object represents the logged-in user
+    setLocalStorage("currentUser", user); // saves the user object as json under the key "currentUser"
+    return user;
+}
+
+
+// Function to save or register just the username
+export function registerUser(username, password) {
+    if (!username || !password) return null 
+
+    // check if username already exists
+    const existing = getLocalStorage("users", {});
+
+    if (existing[username]) return null;
+
+    existing[username] = { password: "hashed in-real-app", created: new Date() };
+    setLocalStorage("users", existing);
+
+    return loginUser(username, password);
+
+    }
+
+// function to logout 
+export function logoutUser() {
+    removeLocalStorage("currentUser");
 }

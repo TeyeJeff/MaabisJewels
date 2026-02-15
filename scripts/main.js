@@ -1,6 +1,14 @@
 import { loadHeaderFooter } from "./helpers.mjs";
+import { addToWishList, isInWishlist, removeFromWishlist } from "./wishlist";
+import { initAuthUI } from "./auth.mjs";
 
-loadHeaderFooter();
+// Run when page is ready or opened
+document.addEventListener("DOMContentLoaded", () => {
+    loadHeaderFooter();
+    initHeroSlider();
+    initAuthUI();
+})
+
 
 // Building a hero slider by applying the concepts learnt from setInterval/ setTimeout from W2 learning activity
 function initHeroSlider() {
@@ -27,7 +35,22 @@ function initHeroSlider() {
     setInterval(nextSlide, 5000);
 }
 
-// Run when page is ready or opened
-document.addEventListener("DOMContentLoaded", () => {
-    initHeroSlider();
+
+
+document.addEventListener("click", (e) => {
+    if (e.target.matches(".wishlist-btn")) {
+        const btn = e.target;
+        const productId = Number(btn.dataset.productId); // stores converted number(which was a string and now converted into a number)
+
+        if (isInWishlist(productId)) {
+            removeFromWishlist(productId);
+            btn.classList.remove("active");
+            btn.setAttribute("aria-label", "Add to wishlist");
+        } else {
+            addToWishList(product);
+            btn.classList.add("active");
+            btn.setAttribute("aria-label", "Remove from wishlist");    
+        }
+    }
 })
+

@@ -26,14 +26,42 @@
 
     <div id="main-header"></div>
 
-    <main>
-        <section class="profile">
+    <main class="profile-page">
+        <section class="profile-auth">
             <h1>My Profile</h1>
-            <div id="profile-info">
-                <!-- will be creating a function to dynamically add profile inform like name, email, etc. -->
+    
+            <div id="auth-section">
+                <!-- this will be shown when not logged in -->
+                <div id="login-form" style="display: none;">
+                    <h2>Login</h2>
+                    <input type="text" id="login-username" placeholder="Username" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button id="login-btn">Login</button>
+                    <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
+                </div>
+    
+                <div id="register-form" style="display: none;">
+                    <h2>Register</h2>
+                    <input type="text" id="reg-username" placeholder="Choose username" required>
+                    <input type="password" id="reg-password" placeholder="Password" required>
+                    <button id="register-btn">Create Account</button>
+                    <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+                </div>
+    
+                <!-- Shown when logged in -->
+                <div id="profile-info" style="display: none;">
+                    <h2>Welcome back, <span id="username-display"></span>!</h2>
+                    <p>Last login: <span id="last-login"></span></p>
+                    <button id="logout-btn">Logout</button>
+                </div>
             </div>
-            <h2>Previous Orders</h2>
-            <div id="previous-orders"></div>
+    
+            <!-- Wishlist preview -->
+            <section class="wishlist-preview">
+                <h2>My Wishlist</h2>
+                <div id="wishlist-preview-grid" class="product-grid small"></div>
+                <a href="wishlist.html">View Full Wishlist</a>
+            </section>
         </section>
     </main>
 
