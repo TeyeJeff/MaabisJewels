@@ -91,6 +91,8 @@ a:hover {
     border-bottom: 1px solid var(--color-border);
     position: sticky;
     top: 0;
+    z-index: 9999;
+    position: relative;
     z-index: 1000;
 }
 
@@ -188,8 +190,9 @@ a:hover {
     padding: 0;
     margin-left: 1rem;
     margin: 1rem;
-    z-index: 1001; /* Ensuring it stays above the nav */
-
+    z-index: 1002; /* Ensuring it stays above the nav */
+    position: relative;
+    pointer-events: auto !important;
 }
 
 .hamburger span {
@@ -320,4 +323,634 @@ a:hover {
 
 .services li {
     margin-bottom: 0.3rem;
+}
+
+/* Cart styling */
+
+.cart-item {
+    display: flex;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    padding: 1.5rem 0;
+    align-items: center;
+}
+
+.cart-item img {
+    max-width: 80px;
+    border-radius: 4px;
+}
+
+.quantity {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.qty-input {
+    width: 50px;
+    text-align: center;
+}
+
+.qty-decrease,
+.qty-increase,
+.remove-cart {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.cart-summary {
+    margin-top: 2rem;
+    text-align: right;
+}
+
+#cart-subtotal {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.main-nav {
+    z-index: 1001;
+}
+
+#main-header {
+    position: relative;
+    z-index: 9999 !important;
+}
+
+/* Product Grid Layout */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+/* Individual Product Card */
+.product-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card .image-container {
+    width: 100%;
+    height: 200px;
+    /* Force a consistent height for all products */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fcfcfc;
+    /* Light background for transparency */
+    margin-bottom: var(--spacing-sm);
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-sm);
+    border-color: var(--color-primary);
+}
+
+.product-card img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    /* CRITICAL: Prevents stretching/cropping */
+    padding: 10px;
+    /* Adds breathing room for the jewelry */
+}
+
+.product-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+}
+
+.product-card .price {
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* Wishlist Button on Card */
+.wishlist-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.3s ease;
+}
+
+.wishlist-btn.active {
+    color: #e74c3c;
+    /* Red heart when active */
+}
+
+/* Cart Item Styling */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-white);
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+.cart-item img {
+    width: 80px;
+    /* Fixed width */
+    height: 80px;
+    /* Fixed height */
+    object-fit: contain;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    flex-shrink: 0;
+    /* Prevents the image from squishing in tight layouts */
+}
+
+.cart-item-details {
+    flex-grow: 1;
+}
+
+.cart-item-details h4 {
+    margin-bottom: 0.25rem;
+}
+
+/* Quantity Controls */
+.cart-qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cart-qty-controls button {
+    background: #eee;
+    border: none;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.cart-qty-controls input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid var(--color-border);
+}
+
+.remove-item {
+    color: #999;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: underline;
+}
+
+.remove-item:hover {
+    color: #e74c3c;
+}
+
+.wishlist-section h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-family: var(--font-heading);
+}
+
+/* If you want wishlist items to be slightly smaller */
+#wishlist-grid .product-card {
+    padding: 1rem;
+}
+
+#wishlist-grid .product-card img {
+    height: 150px;
+}
+
+.btn-primary,
+.add-to-cart {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: filter 0.3s;
+}
+
+.btn-primary:hover,
+.add-to-cart:hover {
+    filter: brightness(1.1);
+    /* Slight brighten on hover */
+}
+
+/* Styling the clickable area of the card */
+.product-card-link {
+    text-decoration: none;
+    /* Remove underline */
+    color: inherit;
+    /* Keep text color same as site */
+    display: block;
+}
+
+.product-card-link:hover h3 {
+    color: var(--color-primary);
+    /* Turn title gold on hover */
+    transition: var(--transition);
+}
+
+/* Ensure images fit the container perfectly */
+.image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.product-detail-flex {
+    display: flex;
+    gap: 4rem;
+    padding: 2rem;
+    align-items: start;
+}
+
+.product-image img {
+    max-width: 500px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+}
+
+.product-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.review-card {
+    border-bottom: 1px solid var(--color-border);
+    padding: 1rem 0;
+}
+
+.review-user {
+    color: var(--color-primary);
+    text-transform: capitalize;
+}
+
+.reviews-section {
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 0 20px;
+}
+
+.review-card {
+    border-bottom: 1px solid #eee;
+    padding: 1.5rem 0;
+}
+
+.review-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.review-user {
+    color: var(--color-primary);
+    /* Gold */
+    text-transform: capitalize;
+}
+
+.review-title {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.review-body {
+    font-style: italic;
+    color: #666;
+    line-height: 1.5;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+/* Specific styling for the wishlist button on the detail page */
+.detail-actions .wishlist-btn {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.detail-actions .wishlist-btn.active {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+    color: #e74c3c;
+    background: #fff5f5;
+}
+
+/* Product Details Layout */
+.product-detail-flex {
+    display: flex;
+    gap: 3rem;
+    padding: 3rem 10%;
+    align-items: center;
+}
+
+.product-image-large {
+    flex: 1;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+}
+
+.product-image-large img {
+    width: 100%;
+    max-height: 550px;
+    object-fit: contain;
+}
+
+.product-info-panel {
+    flex: 1;
+}
+
+.breadcrumb {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    align-items: center;
+}
+
+/* THE HEART BUTTON STYLING */
+.detail-actions .wishlist-btn {
+    background: white;
+    border: 1px solid var(--color-border);
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.detail-actions .wishlist-btn.active {
+    background: #fff5f5;
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+/* Cart & Wishlist Pages Styling */
+.cart-section,
+.wishlist-section {
+    padding: 4rem 10%;
+    min-height: 60vh;
+}
+
+#product-grid,
+#wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2.5rem;
+    padding: 2rem 0;
+}
+
+button.wishlist-btn {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ==========================================================================
+   Product Detail Page & Wishlist Icon
+   ========================================================================== */
+
+/* Layout for the detail container */
+.product-detail-flex {
+    display: flex;
+    gap: 3rem;
+    padding: 3rem 10%;
+    align-items: flex-start;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.product-image-large {
+    flex: 1.2;
+    background: var(--color-white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+}
+
+.product-image-large img {
+    width: 100%;
+    max-height: 550px;
+    object-fit: contain;
+}
+
+.product-info-panel {
+    flex: 1;
+}
+
+.breadcrumb {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* THE HEART BUTTON FIX: Styling the actions container and heart */
+.detail-actions {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    align-items: center;
+}
+
+.detail-actions .wishlist-btn {
+    background: white;
+    border: 1px solid var(--color-border);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.detail-actions .wishlist-btn.active {
+    background: #fff5f5;
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.detail-actions .wishlist-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Grids for Shop and Wishlist pages */
+#product-grid,
+#wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2.5rem;
+    padding: 2rem 5%;
+}
+
+.wishlist-btn * {
+    pointer-events: none;
+}
+
+/* Filter Bar Container */
+.shop-controls {
+    background: var(--color-white);
+    padding: 2rem;
+    margin: 2rem 5%;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: flex-end;
+}
+
+.search-container {
+    flex: 1;
+    min-width: 250px;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    outline-color: var(--color-primary);
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    flex: 2;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 180px;
+}
+
+.filter-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-text);
+}
+
+.filter-group select {
+    padding: 0.8rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: white;
+}
+
+/* Luxury Slider Styling */
+#price-range {
+    width: 100%;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+}
+
+.shop-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 5%;
+    background: #fff;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.search-container {
+    display: flex;
+    flex: 1;
+    min-width: 300px;
+}
+
+.search-container input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+}
+
+.search-container button {
+    padding: 10px 20px;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.filters {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.results-count {
+    padding: 10px 5%;
+    font-style: italic;
+    color: #666;
 }

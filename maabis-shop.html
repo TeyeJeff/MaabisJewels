@@ -20,8 +20,7 @@
     <link rel="icon" href="images/maabis-favicon.ico">
 
     <!--javascript file-->
-    <script src="scripts/main.js" type="module"></script>
-    <script src="scripts/helpers.mjs" type="module"></script>
+    
 
 
 </head>
@@ -30,30 +29,44 @@
     <div id="main-header"></div>
     <main>
         <h1 class="products">Discover Jewelry That Suits Your Taste.</h1>
-        <!--Search container where item names can be search and the results will be filtered on the screen-->
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search by brand name....">
-            <button id="searchBtn">Search</button>
-        </div>
-
-        <div id="results"></div>
-
         <!--Filters & Sorting -->
         <section class="shop-controls">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search by name...">
+                <button id="searchBtn">Search</button>
+            </div>
+        
             <div class="filters">
-                <select id="category-filter">
-                    <option value="">All Categories</option>
-                    <option value="necklaces">Necklaces</option>
-                    <option value="rings">Rings</option>
-                    <!-- etc. -->
-                </select>
-                <select id="sort">
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="newest">Newest</option>
-                </select>
+                <div class="filter-group">
+                    <select id="category-filter">
+                        <option value="all">All Categories</option>
+                        <option value="earrings">Earrings</option>
+                        <option value="watches">Watches</option>
+                        <option value="necklaces">Necklaces</option>
+                        <option value="bracelets">Bracelets</option>
+                        <option value="rings">Rings</option>
+                        <option value="anklets">Anklets</option>
+
+                    </select>
+                </div>
+        
+                <div class="filter-group">
+                    <label>Max Price: <span id="price-value">Any</span></label>
+                    <input type="range" id="price-range" min="0" max="30000" step="1000" value="30000">
+                </div>
+                <div class="filter-group">
+                    <label for="currency-select">View Currency</label>
+                    <select id="currency-select">
+                        <option value="GHS">GHS (₵)</option>
+                        <option value="USD">USD ($)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="GBP">GBP (£)</option>
+                    </select>
+                </div>
             </div>
         </section>
+        </section>
+        <div id="results" class="results-count"></div>
 
         <!-- Product Catalog Grid -->
          <section class="products-section">
@@ -65,6 +78,8 @@
 
     </main>
     <div id="main-footer"></div>
+
+    <script src="scripts/main.js" type="module"></script>
 </body>
 
 </html>

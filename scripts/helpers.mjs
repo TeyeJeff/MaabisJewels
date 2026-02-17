@@ -12,6 +12,15 @@ export async function loadTemplate(path) {
     }
 }
 
+export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
+    const htmlStrings = list.map(template);
+    // if clear is true we need to clear out the contents of the parent.
+    if (clear) {
+        parentElement.innerHTML = "";
+    }
+    parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+} 
+
 export function injectTemplate(template, parentElement, data, callback) {
     if (!parentElement) return;
     parentElement.innerHTML = template;
@@ -21,24 +30,24 @@ export function injectTemplate(template, parentElement, data, callback) {
     }
 }
 
-// One-time setup flag (prevents duplicate listeners) 
-let headerListenersAdded = false;
 
 export async function loadHeaderFooter() {
-    const headerTemplate = await loadTemplate("/includes/header.html"); 
+    const headerTemplate = await loadTemplate("/includes/header.html");
     const footerTemplate = await loadTemplate("/includes/footer.html");
 
     const headerElement = document.querySelector("#main-header");
     const footerElement = document.querySelector("#main-footer");
 
-    if (headerElement) injectTemplate(headerTemplate, headerElement);
-    if (footerElement) injectTemplate(footerTemplate, footerElement);
-
-    // Only add listeners once (important!)
-    if (!headerListenersAdded) {
+    if (headerElement) {
+        headerElement.innerHTML = headerTemplate;
+        // Attach listeners specifically to the newly injected elements
         addHeaderEventListeners();
-        headerListenersAdded = true;
     }
+
+    if (footerElement) {
+        footerElement.innerHTML = footerTemplate;
+    }
+
 }
 
 function addHeaderEventListeners() {
@@ -115,6 +124,7 @@ export function getLocalStorage(key, defaultValue = null) {
 export function setLocalStorage(key, data) {
     try {
         localStorage.setItem(key, JSON.stringify(data));
+        console.log(`Saved ${key} to localStorage:`, data); // ← temporary debug
     } catch (error) {
         console.error(`Error writing to localStorage Key"${key}":`, error);
     }
@@ -175,4 +185,12 @@ export function registerUser(username, password) {
 // function to logout 
 export function logoutUser() {
     removeLocalStorage("currentUser");
+}
+
+// get the product id from the query string
+export function getParam(param) {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const product = urlParams.get(param);
+    return product
 }
