@@ -1306,10 +1306,11 @@ select,
     justify-content: center;
     height: 100px;
     background-color: #f9f9f9;
-    /* Light neutral background */
     border: 2px solid #e0e0e0;
     border-radius: 8px;
     text-decoration: none;
+    border: 2px solid var(--color-primary);
+    border-radius: 8px;
     color: #333;
     font-weight: 600;
     font-family: 'Arimo', sans-serif;
@@ -1323,14 +1324,39 @@ select,
     /* Inverts on hover */
     color: #fff;
     border-color: #000;
-    transform: translateY(-3px);
+    transform: translateY(-5px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.category-section {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.section-title {
+    font-family: 'Alan Sans', sans-serif;
+    font-size: var(--font-size-h2);
+    color: var(--color-text);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-primary);
+    margin: 15px auto 0;
+    border-radius: 2px;
 }
 
 .shop-controls {
         flex-direction: column;
         align-items: stretch;
-        /* Stretch to full width */
         gap: 1.5rem;
     }
 
@@ -1344,7 +1370,6 @@ select,
     #searchInput,
     select {
         width: 100%;
-        /* Full width on mobile */
     }
 
 
@@ -1624,4 +1649,43 @@ select,
     border: 1px solid var(--color-border);
     border-radius: 8px;
     background: var(--color-white);
+}
+
+.section-title,
+.products,
+.products-section h1,
+.customer-feedback h2,
+.contact-details h1 {
+    font-family: 'Alan Sans', sans-serif;
+    font-size: var(--font-size-h2);
+    /* 2.2rem */
+    color: var(--color-text);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+    position: relative;
+    display: block;
+    /* Ensure it takes full width for centering */
+    text-align: center;
+}
+
+/* Add the Gold Accent Underline to all of them */
+.section-title::after,
+.products::after,
+.products-section h1::after,
+.customer-feedback h2::after,
+.contact-details h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-primary);
+    /* Your Gold #b8860b */
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* Specific fix for the shop page top heading to ensure it doesn't overlap filters */
+.products {
+    padding-top: 40px;
 }
