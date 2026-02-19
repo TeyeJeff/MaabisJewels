@@ -60,7 +60,6 @@ export function renderWishlist() {
     }
 
     // We reuse the productCardTemplate to keep the design consistent
-    // You'll need to import productCardTemplate from product.mjs at the top of this file
     import("./product.mjs").then(module => {
         renderListWithTemplate(module.productCardTemplate, wishlistGrid, wishlist, "afterbegin", true);
         updateWishlistUI(); // This ensures the hearts show as red/active

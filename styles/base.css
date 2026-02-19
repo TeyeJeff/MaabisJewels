@@ -1674,6 +1674,11 @@ select,
 .products::after,
 .products-section h1::after,
 .customer-feedback h2::after,
+
+
+
+
+
 .contact-details h1::after {
     content: '';
     display: block;
