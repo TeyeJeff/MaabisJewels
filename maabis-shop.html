@@ -31,31 +31,34 @@
         <h1 class="products">Discover Jewelry That Suits Your Taste.</h1>
         <!--Filters & Sorting -->
         <section class="shop-controls">
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search by name...">
-                <button id="searchBtn">Search</button>
-            </div>
-        
-            <div class="filters">
-                <div class="filter-group">
-                    <select id="category-filter">
-                        <option value="all">All Categories</option>
-                        <option value="earrings">Earrings</option>
-                        <option value="watches">Watches</option>
-                        <option value="necklaces">Necklaces</option>
-                        <option value="bracelets">Bracelets</option>
-                        <option value="rings">Rings</option>
-                        <option value="anklets">Anklets</option>
-
-                    </select>
+            <div class="controls-left">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search jewelry...">
+                    <button id="searchBtn">Search</button>
                 </div>
         
+                <div class="filter-group">
+                    <label for="category-filter">Category</label>
+                    <select id="category-filter">
+                        <option value="all">All Items</option>
+                        <option value="rings">Rings</option>
+                        <option value="watches">Watches</option>
+                        <option value="earrings">Earrings</option>
+                        <option value="anklets">Anklets</option>
+                        <option value="bracelets">Bracelets</option>
+                        <option value="necklaces">Necklaces</option>
+                    </select>
+                </div>
+            </div>
+        
+            <div class="controls-right">
                 <div class="filter-group">
                     <label>Max Price: <span id="price-value">Any</span></label>
                     <input type="range" id="price-range" min="0" max="30000" step="1000" value="30000">
                 </div>
-                <div class="filter-group">
-                    <label for="currency-select">View Currency</label>
+        
+                <div class="filter-group currency-switcher">
+                    <label for="currency-select">Currency</label>
                     <select id="currency-select">
                         <option value="GHS">GHS (₵)</option>
                         <option value="USD">USD ($)</option>
@@ -64,6 +67,7 @@
                     </select>
                 </div>
             </div>
+        </section>
         </section>
         </section>
         <div id="results" class="results-count"></div>

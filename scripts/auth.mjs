@@ -1,6 +1,6 @@
 
 
-import { getCurrentUser, loginUser, registerUser, logoutUser } from "./helpers.mjs";
+import { getCurrentUser, loginUser, registerUser, logoutUser, getLocalStorage } from "./helpers.mjs";
 
 
 export function updateAuthUI() {
@@ -8,7 +8,6 @@ export function updateAuthUI() {
     const registerForm = document.getElementById('register-form');
     const profileInfo = document.getElementById('profile-info');
     const usernameDisplay = document.getElementById('username-display');
-    const lastLoginDisplay = document.getElementById('last-login');
 
     const user = getCurrentUser();
     if (user) {
@@ -16,12 +15,63 @@ export function updateAuthUI() {
         registerForm.style.display = 'none';
         profileInfo.style.display = 'block';
         usernameDisplay.textContent = user.username;
-        lastLoginDisplay.textContent = new Date(user.lastLogin).toLocaleString();
+
+        // TRIGGER RENDERING
+        renderOrderHistory();
     } else {
         loginForm.style.display = 'block';
         profileInfo.style.display = 'none';
         registerForm.style.display = 'none';
     }
+
+    function renderOrderHistory() {
+        const historyContainer = document.getElementById('order-history-list');
+        if (!historyContainer) return;
+
+        const history = getLocalStorage('order_history', []);
+        if (history.length === 0) {
+            historyContainer.innerHTML = "<p>No orders placed yet.</p>";
+            return;
+        }
+
+        const sorted = history.sort((a, b) => b.id - a.id);
+
+        historyContainer.innerHTML = sorted.map(order => `
+        <div class="order-card">
+            <div class="order-header">
+                <strong>Order #${order.id.toString().slice(-5)}</strong>
+                <span>${order.date}</span>
+            </div>
+            <div class="order-summary">
+                ${order.items.length} items — <strong>₵${order.total}</strong>
+            </div>
+            <button class="view-receipt-btn" data-id="${order.id}">View Receipt</button>
+        </div>
+    `).join('');
+
+        attachReceiptListeners(sorted);
+    }
+}
+
+
+
+function attachReceiptListeners(history) {
+    document.querySelectorAll('.view-receipt-btn').forEach(btn => {
+        btn.onclick = () => {
+            const orderId = Number(btn.dataset.id);
+            const order = history.find(o => o.id === orderId);
+
+            let receipt = `--- MAABIS JEWELS RECEIPT ---\n`;
+            receipt += `Order ID: ${order.id}\n`;
+            receipt += `Date: ${order.date}\n\n`;
+            order.items.forEach(item => {
+                receipt += `• ${item.quantity}x ${item.title} - ₵${item.price}\n`;
+            });
+            receipt += `\nTOTAL: ₵${order.total}\nStatus: ${order.status}`;
+
+            alert(receipt);
+        };
+    });
 }
 
 // Function to update the profile button text in header (also exported)

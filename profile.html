@@ -52,16 +52,28 @@
                 <div id="profile-info" style="display: none;">
                     <h2>Welcome back, <span id="username-display"></span>!</h2>
                     <p>Last login: <span id="last-login"></span></p>
+                    
+                    <!-- Wishlist preview -->
+                    <section class="wishlist-preview">
+                        <h2>My Wishlist</h2>
+                        <div id="wishlist-preview-grid" class="product-grid small"></div>
+                        <a href="wishlists.html">View Full Wishlist</a>
+                    </section>
+
+                    <section class="order-history">
+                        <h2>YOUR ORDER HISTORY</h2>
+                        <div id="order-history-list">
+                        </div>
+                    </section>
+
+
+
                     <button id="logout-btn">Logout</button>
                 </div>
             </div>
     
-            <!-- Wishlist preview -->
-            <section class="wishlist-preview">
-                <h2>My Wishlist</h2>
-                <div id="wishlist-preview-grid" class="product-grid small"></div>
-                <a href="wishlists.html">View Full Wishlist</a>
-            </section>
+            
+            
         </section>
     </main>
 
@@ -69,7 +81,9 @@
 
     <!--javascript file-->
     <script src="scripts/main.js" type="module"></script>
-    <script src="scripts/helpers.mjs" type="module"></script>
+    <script src="scripts/auth.mjs" type="module"></script>
+    
+    
 </body>
 
 </html>

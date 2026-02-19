@@ -129,3 +129,16 @@ export function renderCart() {
         }
     });
 }
+
+export function clearCart() {
+    setLocalStorage('cart', []);
+    updateCartCount();
+}
+
+export function renderCheckoutTotal() {
+    const totalEl = document.getElementById("checkout-total");
+    if (totalEl) {
+        const subtotal = getCartSubtotal();
+        totalEl.textContent = `GHS ${subtotal}`;
+    }
+}

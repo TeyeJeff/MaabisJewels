@@ -1,7 +1,7 @@
-import { loadHeaderFooter } from "./helpers.mjs";
+import { loadHeaderFooter, getParam } from "./helpers.mjs";
 import { addToWishList, isInWishlist, removeFromWishlist, updateWishlistUI, renderWishlist } from "./wishlist.mjs";
 import { updateAuthUI, updateHeaderGreeting } from "./auth.mjs";
-import { renderCart, updateCartCount, addToCart } from "./cart.mjs";  // ← added addToCart here
+import { renderCart, updateCartCount, addToCart, renderCheckoutTotal } from "./cart.mjs";  // ← added addToCart here
 import { renderListWithTemplate } from "./helpers.mjs";
 import { fetchJewelryProducts, productCardTemplate } from "./product.mjs";  // ← local fetch
 import { initProductDetails } from "./product-details.mjs";
@@ -40,20 +40,37 @@ async function loadAndRenderProducts() {
 
     grid.innerHTML = '<p>Loading jewelry collection...</p>';
 
-    allProducts = await fetchJewelryProducts();  // ← save here
+    // 1. Fetch all products
+    allProducts = await fetchJewelryProducts();
 
-    if (allProducts.length === 0) {
-        grid.innerHTML = '<p>No jewelry products available right now.</p>';
+    // 2. Check for URL parameter (e.g., ?category=watches)
+    const categoryFilterParam = getParam('category');
+
+    // 3. Update the dropdown UI to match the URL if it exists
+    const categorySelect = document.getElementById('category-filter');
+    if (categoryFilterParam && categorySelect) {
+        categorySelect.value = categoryFilterParam;
+    }
+
+    // 4. Determine what to display
+    let productsToDisplay = allProducts;
+    if (categoryFilterParam && categoryFilterParam !== "all") {
+        productsToDisplay = allProducts.filter(p =>
+            p.category.toLowerCase() === categoryFilterParam.toLowerCase()
+        );
+    }
+
+    if (productsToDisplay.length === 0) {
+        grid.innerHTML = '<p>No jewelry products found in this category.</p>';
         return;
     }
 
-    renderListWithTemplate(
-        productCardTemplate,
-        grid,
-        allProducts,
-        'beforeend',
-        true
-    );
+    // 5. Render
+    grid.innerHTML = productsToDisplay.map(product =>
+        productCardTemplate(product, currentCurrency)
+    ).join("");
+
+    updateWishlistUI();
 }
 
 // Function to handle filtering and re-rendering the shop grid
@@ -67,9 +84,13 @@ async function handleFilters() {
 
     const query = searchInput?.value || "";
     const category = categoryFilter?.value || "all";
+
+    const newUrl = `${window.location.pathname}?category=${category}`;
+    window.history.pushState({ path: newUrl }, '', newUrl);
+
     const price = priceRange ? Number(priceRange.value) : Infinity;
 
-    // Update the visual price label for the slider (keep this in GHS)
+    // Update the visual price label for the slider 
     if (priceDisplay) {
         priceDisplay.textContent = price >= 30000 ? "Any" : `GHS ${price}`;
     }
@@ -79,7 +100,7 @@ async function handleFilters() {
 
     const grid = document.getElementById('product-grid');
     if (grid) {
-        // IMPORTANT: Manually map and render to pass the currentCurrency
+        // Manually map and render to pass the currentCurrency
         grid.innerHTML = allProducts.map(product =>
             productCardTemplate(product, currentCurrency)
         ).join("");
@@ -88,7 +109,7 @@ async function handleFilters() {
     }
 }
 
-// 4. Add a listener for your currency dropdown
+//  Add a listener for your currency dropdown
 document.getElementById('currency-select')?.addEventListener('change', async (e) => {
     const selectedCode = e.target.value;
 
@@ -129,6 +150,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateCartCount();
     updateHeaderGreeting();
 
+    renderCategoryBoxes();
+
     // 3. Page-Specific Logic
     if (document.querySelector(".hero")) {
         initHeroSlider();
@@ -144,6 +167,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (document.getElementById("cart-items")) {
         renderCart();
     }
+
+    
 
     if (document.getElementById("wishlist-grid")) {
         renderWishlist();
@@ -169,7 +194,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 // Wishlist toggle (event delegation)
-// Replace your wishlist click listener with this:
 document.addEventListener("click", (e) => {
     const btn = e.target.closest(".wishlist-btn");
     if (!btn) return;
@@ -203,7 +227,6 @@ document.addEventListener("click", (e) => {
 });
 
 // Add to Cart button click
-// Replace your existing 'add-to-cart' listener with this:
 document.addEventListener('click', (e) => {
     if (e.target.matches('.add-to-cart')) {
         // Get ID from the button's data-id (Detail Page) or parent card (Shop Page)
@@ -228,3 +251,36 @@ document.getElementById('checkout-btn')?.addEventListener('click', () => {
     window.location.href = 'checkout.html';
 });
 
+
+function categoryBoxTemplate(category) {
+    return `
+        <a href="maabis-shop.html?category=${category.id}" class="category-box">
+            <span>${category.name}</span>
+        </a>
+    `;
+}
+
+function renderCategoryBoxes() {
+    const container = document.querySelector("#category-list");
+    if (!container) return;
+
+    const categories = [
+        { id: "watches", name: "Watches" },
+        { id: "rings", name: "Rings" },
+        { id: "necklaces", name: "Necklaces" },
+        { id: "bracelets", name: "Bracelets" }
+    ];
+
+    // Using your helper function
+    renderListWithTemplate(categoryBoxTemplate, container, categories, "afterbegin", true);
+}
+
+document.addEventListener('submit', (e) => {
+    if (e.target.id === 'newsletter-form') {
+        e.preventDefault();
+        const email = e.target.querySelector('input').value;
+        // Here would have normally sent the email to my database but this project is a client end project 
+        alert(`Thank you for subscribing, ${email}!`);
+        e.target.reset();
+    }
+});
