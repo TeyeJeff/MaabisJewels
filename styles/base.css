@@ -403,12 +403,10 @@ a:hover {
 .product-card .image-container {
     width: 100%;
     height: 200px;
-    /* Force a consistent height for all products */
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #fcfcfc;
-    /* Light background for transparency */
     margin-bottom: var(--spacing-sm);
     overflow: hidden;
     border-radius: 4px;
@@ -1374,7 +1372,6 @@ select,
 /* Icon Resizing */
 .row-icon {
     width: 24px;
-    /* Matches the visual size of emojis */
     height: 24px;
     font-size: 24px;
     display: flex;
@@ -1385,9 +1382,7 @@ select,
 
 .wa-row {
     background-color: #f6fff8;
-    /* Optional: Very subtle green hint to distinguish it */
     margin: 0 -25px;
-    /* Pulls background to edges of card */
     padding: 20px 25px;
 }
 
@@ -1468,7 +1463,7 @@ select,
     font-size: 0.95rem;
 }
 
-/* Hover effect */
+
 .faq-item summary:hover {
     color: #d4af37;
 }
@@ -1498,7 +1493,6 @@ select,
     font-size: 1.8rem;
     margin-bottom: 10px;
     color: #d4af37;
-    /* Gold accent */
 }
 
 .footer-newsletter p {
@@ -1536,7 +1530,7 @@ select,
     background-color: #f1c40f;
 }
 
-/* Info & Socials */
+
 .footer-brand {
     font-family: 'Alan Sans', sans-serif;
     font-size: 1.5rem;
@@ -1562,7 +1556,6 @@ select,
 .socialmedia img:hover {
     transform: scale(1.2);
     filter: none;
-    /* Shows original colors on hover */
 }
 
 .copyright {
@@ -1570,12 +1563,10 @@ select,
     color: #666;
 }
 
-/* Quick Links Styling */
 .footer-links h3 {
     font-family: 'Alan Sans', sans-serif;
     font-size: 1.2rem;
     color: #d4af37;
-    /* Gold accent */
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -1600,6 +1591,37 @@ select,
 .footer-links a:hover {
     color: #fff;
     padding-left: 5px;
-    /* Subtle interaction effect */
 }
 
+
+
+
+.product-grid .image-container {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    background-color: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.product-grid .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: var(--transition);
+}
+
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+}

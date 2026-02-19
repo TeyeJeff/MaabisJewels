@@ -51,7 +51,13 @@ export function updateCartQuantity(productId, newQuantity) {
 // Calculate real-time subtotal
 export function getCartSubtotal() {
     const cart = getCart();
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
+    const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+    // Formats the final sum with commas
+    return subtotal.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 }
 
 // Update cart count badge in header
@@ -67,17 +73,29 @@ export function updateCartCount() {
 
 // Template for cart item row (for cart.html display)
 export function cartItemTemplate(item) {
+    // Format individual item price with commas and 2 decimals
+    const formattedPrice = item.price.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
+    // Calculate and format the item subtotal (price * quantity)
+    const formattedSubtotal = (item.price * item.quantity).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
     return `
     <div class="cart-item" data-id="${item.id}">
       <img src="${item.image}" alt="${item.title}" loading="lazy">
       <h3>${item.title}</h3>
-      <p>Price: GHS ${item.price.toFixed(2)}</p>
+      <p>Price: GHS ${formattedPrice}</p>
       <div class="quantity">
         <button class="qty-decrease">-</button>
         <input type="number" value="${item.quantity}" min="1" class="qty-input">
         <button class="qty-increase">+</button>
       </div>
-      <p>Subtotal: GHS ${(item.price * item.quantity).toFixed(2)}</p>
+      <p>Subtotal: GHS ${formattedSubtotal}</p>
       <button class="remove-cart">Remove</button>
     </div>
   `;

@@ -6,8 +6,14 @@ export function productCardTemplate(product, currency = { symbol: "₵", rate: 1
     const inWishlist = isInWishlist(product.id);
     const imageUrl = product.image || '/images/placeholder-jewelry.jpg';
 
-    // Calculate the converted price
-    const convertedPrice = (product.price * currency.rate).toFixed(2);
+    //  Calculate the converted numeric price
+    const convertedPriceValue = product.price * currency.rate;
+
+    // Format with commas and 2 decimal places
+    const formattedPrice = convertedPriceValue.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 
     return `
         <div class="product-card" data-id="${product.id}">
@@ -17,7 +23,7 @@ export function productCardTemplate(product, currency = { symbol: "₵", rate: 1
                 </div>
                 <h3>${product.title}</h3>
             </a>
-            <p class="price">${currency.symbol} ${convertedPrice}</p>
+            <p class="price">${currency.symbol} ${formattedPrice}</p>
             <div class="rating">Rating: ${product.rating} ★</div>
             <button class="add-to-cart">Add to Cart</button>
             <button class="wishlist-btn ${inWishlist ? 'active' : ''}" data-product-id="${product.id}">
@@ -49,7 +55,7 @@ export async function fetchJewelryProducts(query = "", category = "all", maxPric
             const target = category.toLowerCase().trim();
             products = products.filter(p => {
                 const pCat = p.category.toLowerCase().trim();
-                // If user selects "watches", also match "watchs" from your JSON
+                // If user selects "watches", also match "watchs" from JSON
                 if (target === "watches" && pCat === "watchs") return true;
                 return pCat === target;
             });

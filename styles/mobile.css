@@ -211,6 +211,11 @@
         justify-content: center;
         margin: 1rem 0;
     }
+
+    .product-grid .image-container {
+        height: 220px;
+    
+    }
 }
 
 @media (max-width: 480px) {

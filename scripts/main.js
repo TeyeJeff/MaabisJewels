@@ -168,6 +168,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         renderCart();
     }
 
+    if (document.getElementById("checkout-total")) {
+        renderCheckoutTotal();
+    }
     
 
     if (document.getElementById("wishlist-grid")) {
